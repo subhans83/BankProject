@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block body %}
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        <script type='text/javascript' src="{%  static 'js/jquery.min.js' %}"></script><!-- see the change here -->
+
+<form class="d-flex" action="{% url 'bankingapp:reg_add' %}" method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+<div class ="container">
+        <div class="overflow-auto" style="overflow:scroll">
+    <center><b><u>REGISTRATION FORM</u></b></center> <br>
+    Name
+<input type="text" name="name" size="20"/> <br><br>
+ Date of Birth
+<input type="date" name="dob" > <br><br>
+Age:
+<input type="text" name="age" size="3"/> <br><br>
+
+Gender :
+
+<input type="radio" name="gender"/> Male
+<input type="radio" name="gender"/> Female
+<input type="radio" name="gender"/> Other
+<br>
+
+<br>
+
+Phone :
+
+
+<input type="text" name="phone" size="10"/> <br><br>
+     Email:
+<input type="email" name="email" size="25"/> <br><br>
+Address
+<br>
+<textarea cols="80" rows="5" value="address">
+</textarea>
+<br><br>
+        District
+<select id="distddl" name="distddl" >
+            <option disabled selected="true">--Select District--</option>
+            {% for d in distdata  %}
+            <option value="{{ d.name }}">{{ d.name }}</option>
+            {% endfor %}
+        </select>
+
+            Branch
+  <select id="branchddl" name="branchddl">
+                        <option disabled selected="true">--Select Branch--</option>
+
+                        {% for b in branchdata  %}
+
+            <option value="{{ b.district }}">{{ b.name }}</option>
+            {% endfor %}
+
+  </select>
+
+<br><br>
+    Account Type
+
+<select name="acc" id="acc">
+  <option value="savings">Savings</option>
+  <option value="current">Current</option>
+
+</select>
+<br><br>
+    Materials provided
+<input type="checkbox" id="debit" name="material">Debit Card
+    <input type="checkbox" id="credit" name="material">Credit Card
+    <input type="checkbox" id="cheque" name="material">Cheque Book <br><br>
+<input type="submit" name="register" value="Register">
+        </div></div></form>
+{% endblock %}
+
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#distddl').on('change',function(){
+
+            $options=$('#branchddl').find('option');
+            alert($(this).val(););
+            $('#branchddl').html($options.filter('[value="'+ this.value  +'"]'));
+        });
+    });
+</script>

@@ -1,0 +1,16 @@
+{% extends 'users/base.html' %}
+{% block content %}
+<br>
+  <div class="alert alert-primary" role="alert">
+    <h2 style="text-align: center;">Sign Up  Here</h2>
+  </div>
+<form method ='post'>
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value = "Submit">
+</form>
+
+<h5>Already Have an Account??
+    <a href = "{% url 'users:login' %}">Sign In Here</a></h5>
+
+{% endblock %}

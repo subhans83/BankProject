@@ -1,0 +1,16 @@
+{% extends 'users/base.html' %}
+
+{% block content %}
+  <br>
+  <div class="alert alert-primary" role="alert">
+    <h2 style="text-align: center;">Login </h2>
+  </div>
+  <form method="post" action="{% url 'users:login' %}">
+    {% csrf_token %}
+    <p>
+    {{ form.as_p }}
+      <button type="submit">Login</button></p>
+  </form>
+New User??<a href="{% url 'users:signup' %}">Sign up here </a>
+
+{% endblock %}

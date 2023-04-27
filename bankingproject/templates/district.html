@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    {% if district %}
+        {{ District.name }}
+    {% else %}
+        Welcome
+    {% endif %}
+{% endblock %}
+
+{% block title %}
+     {% if district %}
+        {{ District.name }}
+    {% else %}
+
+        ABC Bank
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if district %}
+        <div>
+            <div>
+                <p><a href="">Branches</a></p>
+            </div>
+        </div>
+
+    {% endif %}
+{% endblock %}

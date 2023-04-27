@@ -1,0 +1,22 @@
+{% load static %}
+<header>
+<center><br>
+<img src="{% static 'img/logo.png' %}" alt="load image" height="430" width="100%">
+
+  </center>
+</header>
+    <br>
+
+    <div class="right">
+        {% if user.is_authenticated %}
+                    <h3 style="text-align:right;color:blue;">Welcome {{ user.username }}!
+                        <a class="a2" href="{% url 'users:logout' %} ">Logout</a></h3>
+
+        {% else %}
+
+
+        <h3 style="text-align:right;">
+         <a class="a2" href="{% url 'users:login' %}">Login</a></h3>
+    </div>
+        {% endif %}
+    </div>

@@ -1,0 +1,68 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+<div class="container">
+    <div class="card">
+        <div class="card-header alert alert-primary">
+
+ <h3><center>REGISTRATION FORM</center></h3>
+        </div>
+        <div class="card-body" >
+            <form method="post" action="{% url 'bankingapp:add' %}" enctype="multipart/form-data" id="MemberForm" data-branches-url="{% url 'bankingapp:ajax_load_branches' %}" class="form-horizontal" role="form">
+                {% csrf_token %}
+
+                {% crispy form %}
+
+                <input type="submit" value="Submit" class="btn btn-info">
+            </form>
+        </div>
+      </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $("#id_district").change(function () {
+        const url = $("#MemberForm").attr("data-branches-url");  // get the url of the `load_branches` view
+        const districtId = $(this).val();  // get the selected District ID from the HTML input
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= /members/ajax/load-branches/ )
+            data: {
+                'district_id': districtId       // GET parameters
+            },
+            success: function (data) {
+                $("#id_branch").html(data);
+            }
+     });
+
+    });
+</script>
+<!-- Include Required Prerequisites -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+
+
+  <script type="text/javascript">
+         $(function() {
+            $('input[name="birthdate"]').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true
+            },
+            function(start, end, label) {
+                var years = moment().diff(start, 'years');
+               // alert(years);
+                $("#id_age").val(years);
+
+            });
+        });
+</script>
+{% endblock %}
